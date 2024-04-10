@@ -8,24 +8,24 @@
 import Foundation
 import Alamofire
 
-enum RecipeEndPoint {
-    case recipe(String, String)
+enum RecipeEndpoint {
+    case recipe(String)
     
-    func build() -> URL {
-        var components = URLComponents()
-                
-        components.scheme = "https"
-        components.host = "api.edamam.com"
-        components.path = "search?"
+    func build() -> URLRequest {
+        let baseURLString = "https://api.edamam.com/search"
+        
+        var parameters: [String: String] = [:]
+        
         switch self {
-        case let .recipe(target, text):
-            components.queryItems = [
-                URLQueryItem(name: "app_id", value: "ea6735b6"),
-                URLQueryItem(name: "app_key", value: "6ce491955b23257edb5c4a14ec8ca045"),
-                URLQueryItem(name: "mineType", value: "text/Plain"),
-                URLQueryItem(name: "q", value: text),
-            ]
+        case let .recipe(text):
+            parameters["app_id"] = Config.appID
+            parameters["app_key"] = Config.appKey
+            parameters["mineType"] = "text/Plain"
+            parameters["q"] = text
         }
-        return components.url!
+        
+        let url = URL(string: baseURLString)!
+        
+        return try! URLEncoding.queryString.encode(URLRequest(url: url, method: .get), with: parameters)
     }
 }
