@@ -258,6 +258,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="oJi-GT-d8g"/>
+                    <connections>
+                        <outlet property="recipeTableView" destination="TWZ-x6-79U" id="FUR-3I-6dC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NuY-YD-bJ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

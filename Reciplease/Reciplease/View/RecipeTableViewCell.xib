@@ -56,6 +56,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="recipeTableViewCellUILabel" destination="Wyi-0J-j3s" id="dR4-vV-7nl"/>
+            </connections>
             <point key="canvasLocation" x="131.29770992366412" y="-11.267605633802818"/>
         </tableViewCell>
     </objects>

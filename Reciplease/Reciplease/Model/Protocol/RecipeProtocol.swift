@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import Alamofire
+
+protocol RecipeProtocol {
+    var urlApi: String { get }
+    func request(url: URL, completionHandler: @escaping (DataResponse<Any>) -> Void)
+}
