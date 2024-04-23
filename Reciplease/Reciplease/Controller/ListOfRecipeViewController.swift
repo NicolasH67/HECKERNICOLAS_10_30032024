@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ListOfRecipeViewController: UIViewController {
     
@@ -13,7 +14,7 @@ class ListOfRecipeViewController: UIViewController {
     
     var recipesList = [Recipe]()
     let RecipeCellIdentifier = "RecipeCellIdentifier"
-    
+    let loader = RecipesLoader()
     // MARK: - IBOutlet
     
     @IBOutlet weak var recipeTableView: UITableView!
@@ -26,8 +27,9 @@ class ListOfRecipeViewController: UIViewController {
         let nib = UINib(nibName: "RecipeTableViewCell", bundle: nil)
         recipeTableView.register(nib, forCellReuseIdentifier: RecipeCellIdentifier)
         recipeTableView.reloadData()
+        recipeTableView.rowHeight = 150
         
-        RecipesLoader.fetchRecipes(ingrediants: ["Apple", "Chocolate"]) { result in
+        loader.fetchRecipes(ingrediants: ["Beef"]) { result in
             switch result {
             case .success(let data):
                 self.recipesList = data.hits.map { $0.recipe }
@@ -45,6 +47,22 @@ class ListOfRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         recipeTableView.reloadData()
     }
+    
+    func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .success(let data):
+                if let image = UIImage(data: data) {
+                    completion(image)
+                } else {
+                    completion(nil)
+                }
+            case .failure(let error):
+                print("Image download failed: \(error)")
+                completion(nil)
+            }
+        }
+    }
 }
 
 extension ListOfRecipeViewController: UITableViewDataSource {
@@ -53,6 +71,7 @@ extension ListOfRecipeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(recipesList.count)
         return recipesList.count
     }
     
@@ -62,9 +81,22 @@ extension ListOfRecipeViewController: UITableViewDataSource {
         }
             
         let recipe = recipesList[indexPath.row]
-            
-        cell.recipeTableViewCellUILabel.text = recipe.label ?? "No Title"
-            
+        
+        if let imageUrl = URL(string: recipe.image) {
+            downloadImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    let imageView = UIImageView(frame: cell.contentView.bounds)
+                    imageView.contentMode = .scaleAspectFill
+                    imageView.clipsToBounds = true
+                    imageView.image = image
+                    
+                    cell.contentView.addSubview(imageView)
+                    cell.contentView.sendSubviewToBack(imageView)
+                }
+            }
+        }
+        
+        cell.recipeTableViewCellUILabel.text = recipe.label
         return cell
     }
 }

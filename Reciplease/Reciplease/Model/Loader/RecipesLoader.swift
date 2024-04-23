@@ -8,14 +8,35 @@
 import Foundation
 import Alamofire
 
+protocol HttpClient {
+    func request(url: URL, completion: @escaping (Result<Data, Error>) -> Void)
+}
+
+class AlamofireHttpClient: HttpClient {
+    func request(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        AF.request(url).responseData{ result in
+            guard let data = result.data, result.error == nil else {
+                completion(.failure(NSError()))
+                return
+            }
+            completion(.success(data))
+        }
+    }
+}
+
 class RecipesLoader {
-    static func fetchRecipes(ingrediants: [String], completion: @escaping (Result<RecipesResponses, Error>) -> Void) {
+    private let client: HttpClient
+    
+    init(client: HttpClient = AlamofireHttpClient()) {
+        self.client = client
+    }
+    
+    func fetchRecipes(ingrediants: [String], completion: @escaping (Result<RecipesResponses, Error>) -> Void) {
         let ingredientUrl = ingrediants.joined(separator: "+")
         let url = RecipesEndpoint.recipe(ingredientUrl).build()
-        print(url)
             
-        AF.request(url).responseData { response in
-            switch response.result {
+        client.request(url: url) { result in
+            switch result {
             case .success(let data):
                 do {
                     let recipesResponse = try JSONDecoder().decode(RecipesResponses.self, from: data)

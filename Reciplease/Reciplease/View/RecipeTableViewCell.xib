@@ -4,67 +4,50 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6g-Xz-QZZ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyi-0J-j3s">
-                                <rect key="frame" x="10" y="50" width="300" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Cih-DJ-DGc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thO-b5-OoT">
-                                <rect key="frame" x="250" y="10" width="60" height="60"/>
-                                <color key="backgroundColor" red="0.34509804840000002" green="0.56862747670000002" blue="0.38823530080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="hf0-pf-iRF"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyi-0J-j3s">
+                        <rect key="frame" x="10" y="120" width="300" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="thO-b5-OoT" secondAttribute="bottom" constant="10" id="PpH-tz-819"/>
-                            <constraint firstAttribute="trailing" secondItem="Wyi-0J-j3s" secondAttribute="trailing" constant="10" id="Sce-dY-vLr"/>
-                            <constraint firstItem="Wyi-0J-j3s" firstAttribute="leading" secondItem="W6g-Xz-QZZ" secondAttribute="leading" constant="10" id="Tnl-as-fvN"/>
-                            <constraint firstAttribute="trailing" secondItem="thO-b5-OoT" secondAttribute="trailing" constant="10" id="at5-fb-4e6"/>
-                            <constraint firstItem="thO-b5-OoT" firstAttribute="top" secondItem="W6g-Xz-QZZ" secondAttribute="top" constant="10" id="hv6-td-dJx"/>
-                            <constraint firstAttribute="bottom" secondItem="Wyi-0J-j3s" secondAttribute="bottom" constant="10" id="kAt-gs-xgd"/>
+                            <constraint firstAttribute="height" constant="20" id="uvC-5F-9py"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="25"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thO-b5-OoT">
+                        <rect key="frame" x="220" y="20" width="80" height="90"/>
+                        <color key="backgroundColor" red="0.34509804840000002" green="0.56862747670000002" blue="0.38823530080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="YrX-tm-mQT"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="W6g-Xz-QZZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GJx-Sm-Owf"/>
-                    <constraint firstAttribute="trailing" secondItem="W6g-Xz-QZZ" secondAttribute="trailing" id="KWQ-Qc-Mgi"/>
-                    <constraint firstItem="W6g-Xz-QZZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="LPZ-28-QMs"/>
-                    <constraint firstAttribute="bottom" secondItem="W6g-Xz-QZZ" secondAttribute="bottom" id="XkR-ze-IvK"/>
+                    <constraint firstItem="Wyi-0J-j3s" firstAttribute="top" secondItem="thO-b5-OoT" secondAttribute="bottom" constant="10" id="4v4-Bk-CL4"/>
+                    <constraint firstAttribute="trailing" secondItem="Wyi-0J-j3s" secondAttribute="trailing" constant="10" id="9oc-Ol-Uvq"/>
+                    <constraint firstItem="Wyi-0J-j3s" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="KbT-ae-6sr"/>
+                    <constraint firstItem="thO-b5-OoT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Of2-uP-ZYw"/>
+                    <constraint firstAttribute="bottom" secondItem="Wyi-0J-j3s" secondAttribute="bottom" constant="10" id="Sm6-Ba-5ES"/>
+                    <constraint firstAttribute="trailing" secondItem="thO-b5-OoT" secondAttribute="trailing" constant="20" id="vTm-10-fbK"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="recipeContentView" destination="H2p-sc-9uM" id="B6H-C2-x9g"/>
                 <outlet property="recipeTableViewCellUILabel" destination="Wyi-0J-j3s" id="dR4-vV-7nl"/>
             </connections>
             <point key="canvasLocation" x="131.29770992366412" y="-11.267605633802818"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

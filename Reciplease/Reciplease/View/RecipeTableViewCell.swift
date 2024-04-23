@@ -10,9 +10,10 @@ import UIKit
 class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var recipeTableViewCellUILabel: UILabel!
     
+    @IBOutlet weak var recipeContentView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
