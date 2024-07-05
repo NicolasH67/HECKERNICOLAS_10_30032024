@@ -45,6 +45,7 @@ class RecipeTableViewCell: UITableViewCell {
         recipeTableViewCellUILabel.text = recipe.recipeTitle
         guard let imageUrl = recipe.image else { return }
         loadImage(url: imageUrl)
+        recipeImageView.translatesAutoresizingMaskIntoConstraints = false
         recipeIngrediantTableViewCellUILabel.text = recipe.ingredients?.joined(separator: ", ")
     }
     
@@ -54,7 +55,7 @@ class RecipeTableViewCell: UITableViewCell {
                 if let data = imageData, let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.recipeImageView?.image = image
-                        self.recipeImageView?.contentMode = .scaleAspectFit
+                        self.recipeImageView?.contentMode = .scaleAspectFill
                         self.recipeImageView?.clipsToBounds = true
                     }
                 }
