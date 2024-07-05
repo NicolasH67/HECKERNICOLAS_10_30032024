@@ -7,31 +7,6 @@
 
 import UIKit
 
-//protocol RecipeProtocol {
-//    var ingredientsList: [Ingredient] { get }
-//    var recipeLabel: String { get }
-//}
-//
-//extension Recipe: RecipeProtocol {
-//    var ingredientsList: [Ingredient] {
-//        return ingredientsList
-//    }
-//    
-//    var recipeLabel: String {
-//        return recipeLabel
-//    }
-//}
-//
-//extension RecipeEntity: RecipeProtocol {
-//    var ingredientsList: [Ingredient] {
-//        return self.ingredientsList
-//    }
-//    
-//    var recipeLabel: String {
-//        return self.recipeLabel
-//    }
-//}
-
 struct RecipeRepresentable {
     var recipeTitle: String
     var ingredients: [String]?
