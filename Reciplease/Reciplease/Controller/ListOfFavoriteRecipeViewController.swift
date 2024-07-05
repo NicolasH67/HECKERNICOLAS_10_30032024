@@ -93,23 +93,6 @@ extension ListOfFavoriteRecipeViewController: UITableViewDataSource {
 
         let recipe = recipesList[indexPath.row]
 
-        if let imageUrlString = recipe.image, let imageUrl = URL(string: imageUrlString) {
-            ImageLoader.downloadImage(from: imageUrl) { imageData in
-                if let data = imageData, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                            if let visibleIndexPaths = tableView.indexPathsForVisibleRows, visibleIndexPaths.contains(indexPath) {
-                            let imageView = UIImageView(image: image)
-                            imageView.contentMode = .scaleAspectFill
-                            imageView.clipsToBounds = true
-                            imageView.frame = cell.contentView.bounds
-                            cell.contentView.addSubview(imageView)
-                            cell.contentView.sendSubviewToBack(imageView)
-                        }
-                    }
-                }
-            }
-        }
-
         cell.configure(with: RecipeRepresentable(recipeEntity: recipe))
 
         return cell
