@@ -6,24 +6,112 @@
 //
 
 import UIKit
+import CoreData
 
-class ListOfFavoriteRecipeViewController: UIViewController {
+class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate {
+
+    // MARK: - Properties
+
+    var recipesList = [RecipeEntity]()
+    let RecipeCellIdentifier = "RecipeCellIdentifier"
+    let loader = RecipesLoader()
+    var ingredientsRecipe: [String] = []
+    var ingredients: [String] = ["Chocolate"]
+    var lastRecipe: Int = 0
+    var imageCache = NSCache<NSString, UIImage>()
+    
+    var selectedRecipe: RecipeRepresentable?
+
+    var isLoading = false
+
+    // MARK: - IBOutlet
+
+    @IBOutlet weak var recipeTableView: UITableView!
+
+    // MARK: - Override
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let nib = UINib(nibName: "RecipeTableViewCell", bundle: nil)
+        recipeTableView.register(nib, forCellReuseIdentifier: RecipeCellIdentifier)
+        recipeTableView.reloadData()
+        recipeTableView.rowHeight = 150
+        recipeTableView.delegate = self
+        
+        loadRecipes()
+        
+        recipeTableView.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadRecipes()
+        recipeTableView.reloadData()
+    }
+
+    func loadRecipes() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        
+        do {
+            let recipes = try context.fetch(fetchRequest)
+            recipesList = recipes
+            lastRecipe = recipesList.count
+        } catch {
+            print("Failed to fetch recipes: \(error.localizedDescription)")
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let controller = segue.destination as? RecipeViewController {
+            controller.recipe = selectedRecipe
+        }
     }
-    */
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRecipe = RecipeRepresentable(recipeEntity: recipesList[indexPath.row])
+        performSegue(withIdentifier: "showDetailRecipe", sender: nil)
+    }
+}
 
+extension ListOfFavoriteRecipeViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipesList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecipeCellIdentifier, for: indexPath) as? RecipeTableViewCell else {
+            fatalError("Failed to dequeue a RecipeTableViewCell.")
+        }
+
+        let recipe = recipesList[indexPath.row]
+
+        if let imageUrlString = recipe.image, let imageUrl = URL(string: imageUrlString) {
+            ImageLoader.downloadImage(from: imageUrl) { imageData in
+                if let data = imageData, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                            if let visibleIndexPaths = tableView.indexPathsForVisibleRows, visibleIndexPaths.contains(indexPath) {
+                            let imageView = UIImageView(image: image)
+                            imageView.contentMode = .scaleAspectFill
+                            imageView.clipsToBounds = true
+                            imageView.frame = cell.contentView.bounds
+                            cell.contentView.addSubview(imageView)
+                            cell.contentView.sendSubviewToBack(imageView)
+                        }
+                    }
+                }
+            }
+        }
+
+        cell.configure(with: RecipeRepresentable(recipeEntity: recipe))
+
+        return cell
+    }
 }

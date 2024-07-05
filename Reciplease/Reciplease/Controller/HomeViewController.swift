@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 
 class HomeViewController: UIViewController {
     static var cellIdentifier = "IngrediantCell"
@@ -14,6 +13,15 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRecipe" {
+            if let destinationVC = segue.destination as? ListOfRecipeViewController {
+                destinationVC.segue = "showRecipe"
+                destinationVC.ingredients = ingrediants
+            }
+        }
     }
     
     // MARK: - IBOutlet
@@ -35,6 +43,11 @@ class HomeViewController: UIViewController {
     @IBAction func dissmissKeybord(_ sender: UITapGestureRecognizer) {
         ingrediantsTextField.resignFirstResponder()
     }
+    
+    @IBAction func searchRecipeButton(_ sender: Any) {
+        
+    }
+    
     // MARK: - function
     
     private func addIngredients() {

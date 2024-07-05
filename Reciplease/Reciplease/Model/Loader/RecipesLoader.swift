@@ -31,10 +31,10 @@ class RecipesLoader {
         self.client = client
     }
     
-    func fetchRecipes(ingrediants: [String], completion: @escaping (Result<RecipesResponses, Error>) -> Void) {
-        let ingredientUrl = ingrediants.joined(separator: "+")
-        let url = RecipesEndpoint.recipe(ingredientUrl).build()
-            
+    func fetchRecipes(ingredients: [String], from: Int, to: Int, completion: @escaping (Result<RecipesResponses, Error>) -> Void) {
+        let ingredientUrl = ingredients.joined(separator: "+")
+        let url = RecipesEndpoint.recipe(text: ingredientUrl, from: from, to: to).build()
+        
         client.request(url: url) { result in
             switch result {
             case .success(let data):
