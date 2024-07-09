@@ -24,4 +24,13 @@ class careDataModel {
         }
     }
     
+    func addToFavorite(for recipe: RecipeRepresentable?, appDelegate: AppDelegate) {
+        let context = appDelegate.persistentContainer.viewContext
+        let recipeEntity = RecipeEntity(context: context)
+        recipeEntity.label = recipe?.recipeTitle
+        recipeEntity.image = recipe?.image
+        recipeEntity.ingredients = recipe?.ingredients as? [String]
+        recipeEntity.shareAs = recipe?.shareAs
+        appDelegate.saveContext()
+    }
 }

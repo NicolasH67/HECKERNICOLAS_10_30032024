@@ -10,6 +10,7 @@ import CoreData
 
 class RecipeViewController: UIViewController {
     var recipe: RecipeRepresentable?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let dataModel = careDataModel()
     var context: NSManagedObjectContext!
@@ -35,7 +36,7 @@ class RecipeViewController: UIViewController {
         let starFilledImage = UIImage(systemName: "star.fill")
         if sender.image == starImage {
             sender.image = starFilledImage
-            addToFavorite()
+            dataModel.addToFavorite(for: recipe, appDelegate: self.appDelegate)
         } else {
             sender.image = starImage
             removeToFovrite(title: recipe!.recipeTitle)
@@ -50,8 +51,7 @@ class RecipeViewController: UIViewController {
         }
         
         let isFavorite = {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            return self.dataModel.checkFavoriteStatus(for: self.recipeTitleLabel.text!, appDelegate: appDelegate)
+            return self.dataModel.checkFavoriteStatus(for: self.recipeTitleLabel.text!, appDelegate: self.appDelegate)
         }
         
         if isFavorite() {
@@ -82,16 +82,16 @@ class RecipeViewController: UIViewController {
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
         
-    func addToFavorite() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let recipeEntity = RecipeEntity(context: context)
-        recipeEntity.label = recipe?.recipeTitle
-        recipeEntity.image = recipe?.image
-        recipeEntity.ingredients = recipe?.ingredients as? [String]
-        recipeEntity.shareAs = recipe?.shareAs
-        appDelegate.saveContext()
-    }
+//    func addToFavorite() {
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//        let recipeEntity = RecipeEntity(context: context)
+//        recipeEntity.label = recipe?.recipeTitle
+//        recipeEntity.image = recipe?.image
+//        recipeEntity.ingredients = recipe?.ingredients as? [String]
+//        recipeEntity.shareAs = recipe?.shareAs
+//        appDelegate.saveContext()
+//    }
     
     func removeToFovrite(title : String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
