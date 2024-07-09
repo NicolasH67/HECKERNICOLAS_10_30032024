@@ -81,28 +81,6 @@ class RecipeViewController: UIViewController {
         backgroundLayer.contents = image.cgImage
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
-    
-    func removeToFovrite(title : String) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
-        request.predicate = NSPredicate(format: "label == %@", title)
-        
-        do {
-            let results = try context.fetch(request)
-            
-            if let recipeToDelete = results.first {
-                context.delete(recipeToDelete)
-                
-                try context.save()
-            } else {
-                print("No recipe found with the title \(title)")
-            }
-        } catch {
-            print("Failed to fetch or delete the recipe: \(error)")
-        }
-    }
 }
 
 extension RecipeViewController: UITableViewDataSource {
