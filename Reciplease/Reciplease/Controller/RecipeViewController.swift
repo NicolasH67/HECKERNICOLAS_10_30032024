@@ -60,10 +60,6 @@ class RecipeViewController: UIViewController {
             favoriteBarButtomItem.image = UIImage(systemName: "star")
         }
         
-        if let recipeIngredients = recipe?.ingredients {
-            print(recipeIngredients)
-        }
-        
         if let imageUrlString = recipe?.image, let imageUrl = URL(string: imageUrlString) {
             ImageLoader.downloadImage(from: imageUrl) { imageData in
                 if let data = imageData, let image = UIImage(data: data) {
