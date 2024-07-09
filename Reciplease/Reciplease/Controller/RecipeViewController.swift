@@ -11,6 +11,9 @@ import CoreData
 class RecipeViewController: UIViewController {
     var recipe: RecipeRepresentable?
     
+    let dataModel = careDataModel()
+    var context: NSManagedObjectContext!
+    
     @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var recipeTableView: UITableView!
     @IBOutlet weak var imageView: UIView!
@@ -41,9 +44,20 @@ class RecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkFavoriteStatus()
+        
         if let recipeTitle = recipe?.recipeTitle {
             recipeTitleLabel.text = recipeTitle
+        }
+        
+        let isFavorite = {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            return self.dataModel.checkFavoriteStatus(for: self.recipeTitleLabel.text!, appDelegate: appDelegate)
+        }
+        
+        if isFavorite() {
+            favoriteBarButtomItem.image = UIImage(systemName: "star.fill")
+        } else {
+            favoriteBarButtomItem.image = UIImage(systemName: "star")
         }
         
         if let recipeIngredients = recipe?.ingredients {
@@ -67,29 +81,7 @@ class RecipeViewController: UIViewController {
         backgroundLayer.contents = image.cgImage
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
-    
-    func checkFavoriteStatus() {
-        guard let recipeLabel = recipe?.recipeTitle else { return }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
-        request.predicate = NSPredicate(format: "label == %@", recipeLabel)
-        
-        do {
-            let results = try context.fetch(request)
-            
-            if results.first != nil {
-                favoriteBarButtomItem.image = UIImage(systemName: "star.fill")
-            } else {
-                return
-            }
-        } catch {
-            return
-        }
-    }
-    
     func addToFavorite() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
