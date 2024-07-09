@@ -29,6 +29,8 @@ class careDataModel {
         let recipeEntity = RecipeEntity(context: context)
         recipeEntity.label = recipe?.recipeTitle
         recipeEntity.image = recipe?.image
+        recipeEntity.calories = recipe?.calorie ?? 0.0
+        recipeEntity.time = Int32(recipe?.time ?? 0)
         recipeEntity.ingredients = recipe?.ingredients as? [String]
         recipeEntity.shareAs = recipe?.shareAs
         appDelegate.saveContext()
