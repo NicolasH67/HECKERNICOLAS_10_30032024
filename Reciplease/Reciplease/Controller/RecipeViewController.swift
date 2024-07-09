@@ -39,7 +39,7 @@ class RecipeViewController: UIViewController {
             dataModel.addToFavorite(for: recipe, appDelegate: self.appDelegate)
         } else {
             sender.image = starImage
-            removeToFovrite(title: recipe!.recipeTitle)
+            dataModel.removeToFavorite(for: self.recipeTitleLabel.text!, appDelegate: self.appDelegate)
         }
     }
     
@@ -81,17 +81,6 @@ class RecipeViewController: UIViewController {
         backgroundLayer.contents = image.cgImage
         view.layer.insertSublayer(backgroundLayer, at: 0)
     }
-        
-//    func addToFavorite() {
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//        let recipeEntity = RecipeEntity(context: context)
-//        recipeEntity.label = recipe?.recipeTitle
-//        recipeEntity.image = recipe?.image
-//        recipeEntity.ingredients = recipe?.ingredients as? [String]
-//        recipeEntity.shareAs = recipe?.shareAs
-//        appDelegate.saveContext()
-//    }
     
     func removeToFovrite(title : String) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
