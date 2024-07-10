@@ -37,8 +37,8 @@ class RecipeViewController: UIViewController {
             dataModel?.addToFavorite(for: recipe)
         } else {
             sender.image = starImage
-            #warning("retirer !!!")
-            dataModel?.removeToFavorite(for: self.recipeTitleLabel.text!)
+            guard let recipeTitleText = self.recipeTitleLabel.text else { return }
+            dataModel?.removeToFavorite(for: recipeTitleText)
         }
     }
     
@@ -52,9 +52,9 @@ class RecipeViewController: UIViewController {
             recipeTitleLabel.text = recipeTitle
         }
         
+        guard let recipeTitleText = recipeTitleLabel.text else { return }
         let isFavorite = {
-            #warning("retirer !!!")
-            return self.dataModel?.checkFavoriteStatus(for: self.recipeTitleLabel.text!) ?? false
+            return self.dataModel?.checkFavoriteStatus(for: recipeTitleText) ?? false
         }
         
         if isFavorite() {
@@ -70,6 +70,11 @@ class RecipeViewController: UIViewController {
                         self.setBackgroundImage(image, for: self.imageView)
                     }
                 }
+            }
+        } else {
+            guard let image = UIImage(named: "defaultImage") else { return }
+            DispatchQueue.main.async {
+                self.setBackgroundImage(image, for: self.imageView)
             }
         }
     }

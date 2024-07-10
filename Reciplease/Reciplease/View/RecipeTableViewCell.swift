@@ -64,7 +64,6 @@ class RecipeTableViewCell: UITableViewCell {
     }
     
     func loadImage(url: String) {
-        #warning("image par default")
         if let imageUrl = URL(string: url) {
             ImageLoader.downloadImage(from: imageUrl) { imageData in
                 if let data = imageData, let image = UIImage(data: data) {
@@ -74,6 +73,12 @@ class RecipeTableViewCell: UITableViewCell {
                         self.recipeImageView?.clipsToBounds = true
                     }
                 }
+            }
+        } else {
+            DispatchQueue.main.async {
+                self.recipeImageView?.image = UIImage(named: "defaultImage")
+                self.recipeImageView?.contentMode = .scaleAspectFill
+                self.recipeImageView?.clipsToBounds = true
             }
         }
     }
