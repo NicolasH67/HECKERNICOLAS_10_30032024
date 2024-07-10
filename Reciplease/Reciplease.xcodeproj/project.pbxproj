@@ -15,6 +15,7 @@
 		7046FE982BCE724D00D2D67E /* RecipesLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046FE972BCE724D00D2D67E /* RecipesLoader.swift */; };
 		7046FE9C2BCE730000D2D67E /* RecipesEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046FE9B2BCE730000D2D67E /* RecipesEndpoint.swift */; };
 		7046FE9E2BDBDED700D2D67E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046FE9D2BDBDED700D2D67E /* ImageLoader.swift */; };
+		7064968F2C3EDFA600EECF21 /* RecipeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7064968E2C3EDFA600EECF21 /* RecipeTest.swift */; };
 		708AF1942BBBEDF300164C7A /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AF1922BBBEDF300164C7A /* RecipeTableViewCell.swift */; };
 		708AF1952BBBEDF300164C7A /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708AF1932BBBEDF300164C7A /* RecipeTableViewCell.xib */; };
 		70A146422BB89ECA00C81CB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146412BB89ECA00C81CB4 /* AppDelegate.swift */; };
@@ -22,7 +23,6 @@
 		70A146492BB89ECA00C81CB4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 70A146482BB89ECA00C81CB4 /* Base */; };
 		70A1464B2BB89ECB00C81CB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70A1464A2BB89ECB00C81CB4 /* Assets.xcassets */; };
 		70A1464E2BB89ECB00C81CB4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 70A1464D2BB89ECB00C81CB4 /* Base */; };
-		70A146592BB89ECB00C81CB4 /* RecipleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146582BB89ECB00C81CB4 /* RecipleaseTests.swift */; };
 		70A146762BB8AAC800C81CB4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146752BB8AAC800C81CB4 /* HomeViewController.swift */; };
 		70A146782BB9584800C81CB4 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146772BB9584800C81CB4 /* FavoriteViewController.swift */; };
 		70A1467A2BB9A95500C81CB4 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146792BB9A95500C81CB4 /* RecipeViewController.swift */; };
@@ -48,6 +48,8 @@
 		7046FE972BCE724D00D2D67E /* RecipesLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesLoader.swift; sourceTree = "<group>"; };
 		7046FE9B2BCE730000D2D67E /* RecipesEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesEndpoint.swift; sourceTree = "<group>"; };
 		7046FE9D2BDBDED700D2D67E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		7064968D2C3EDFA600EECF21 /* RecipleaseTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RecipleaseTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		7064968E2C3EDFA600EECF21 /* RecipeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTest.swift; sourceTree = "<group>"; };
 		708AF1922BBBEDF300164C7A /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		708AF1932BBBEDF300164C7A /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		70A1463E2BB89ECA00C81CB4 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +60,6 @@
 		70A1464D2BB89ECB00C81CB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70A1464F2BB89ECB00C81CB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70A146542BB89ECB00C81CB4 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		70A146582BB89ECB00C81CB4 /* RecipleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipleaseTests.swift; sourceTree = "<group>"; };
 		70A146752BB8AAC800C81CB4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		70A146772BB9584800C81CB4 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		70A146792BB9A95500C81CB4 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -147,7 +148,8 @@
 		70A146572BB89ECB00C81CB4 /* RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				70A146582BB89ECB00C81CB4 /* RecipleaseTests.swift */,
+				7064968E2C3EDFA600EECF21 /* RecipeTest.swift */,
+				7064968D2C3EDFA600EECF21 /* RecipleaseTests-Bridging-Header.h */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -263,6 +265,7 @@
 					};
 					70A146532BB89ECB00C81CB4 = {
 						CreatedOnToolsVersion = 15.3;
+						LastSwiftMigration = 1540;
 						TestTargetID = 70A1463D2BB89ECA00C81CB4;
 					};
 				};
@@ -337,7 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70A146592BB89ECB00C81CB4 /* RecipleaseTests.swift in Sources */,
+				7064968F2C3EDFA600EECF21 /* RecipeTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +562,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S29RUQ396F;
@@ -568,6 +572,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = HECKERNICOLAS.RecipleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "RecipleaseTests/RecipleaseTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reciplease";
@@ -579,6 +585,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S29RUQ396F;
@@ -588,6 +595,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = HECKERNICOLAS.RecipleaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "RecipleaseTests/RecipleaseTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reciplease.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Reciplease";

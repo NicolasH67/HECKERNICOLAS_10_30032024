@@ -77,7 +77,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uWh-5g-0ii"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="16"/>
+                                <fontDescription key="fontDescription" name="Impact" family="Impact" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
