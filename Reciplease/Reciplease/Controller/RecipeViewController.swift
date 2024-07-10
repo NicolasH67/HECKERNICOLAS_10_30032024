@@ -10,10 +10,8 @@ import CoreData
 
 class RecipeViewController: UIViewController {
     var recipe: RecipeRepresentable?
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    let dataModel = careDataModel()
-    var context: NSManagedObjectContext!
+    var dataModel: CoreDataManager?
     
     @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var recipeTableView: UITableView!
@@ -36,22 +34,27 @@ class RecipeViewController: UIViewController {
         let starFilledImage = UIImage(systemName: "star.fill")
         if sender.image == starImage {
             sender.image = starFilledImage
-            dataModel.addToFavorite(for: recipe, appDelegate: self.appDelegate)
+            dataModel?.addToFavorite(for: recipe)
         } else {
             sender.image = starImage
-            dataModel.removeToFavorite(for: self.recipeTitleLabel.text!, appDelegate: self.appDelegate)
+            #warning("retirer !!!")
+            dataModel?.removeToFavorite(for: self.recipeTitleLabel.text!)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        dataModel = CoreDataManager(context: appDelegate.persistentContainer.viewContext)
+        
         if let recipeTitle = recipe?.recipeTitle {
             recipeTitleLabel.text = recipeTitle
         }
         
         let isFavorite = {
-            return self.dataModel.checkFavoriteStatus(for: self.recipeTitleLabel.text!, appDelegate: self.appDelegate)
+            #warning("retirer !!!")
+            return self.dataModel?.checkFavoriteStatus(for: self.recipeTitleLabel.text!) ?? false
         }
         
         if isFavorite() {

@@ -64,6 +64,7 @@ class RecipeTableViewCell: UITableViewCell {
     }
     
     func loadImage(url: String) {
+        #warning("image par default")
         if let imageUrl = URL(string: url) {
             ImageLoader.downloadImage(from: imageUrl) { imageData in
                 if let data = imageData, let image = UIImage(data: data) {

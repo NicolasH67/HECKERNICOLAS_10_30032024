@@ -27,7 +27,7 @@
 		70A146782BB9584800C81CB4 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146772BB9584800C81CB4 /* FavoriteViewController.swift */; };
 		70A1467A2BB9A95500C81CB4 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146792BB9A95500C81CB4 /* RecipeViewController.swift */; };
 		70A1467C2BB9A99700C81CB4 /* ListOfRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A1467B2BB9A99700C81CB4 /* ListOfRecipeViewController.swift */; };
-		70F6FD0B2C388E3200E16413 /* coreDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6FD0A2C388E3200E16413 /* coreDataModel.swift */; };
+		70F6FD0B2C388E3200E16413 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6FD0A2C388E3200E16413 /* CoreDataManager.swift */; };
 		70F7EEED2BC55CDF0098A476 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 70F7EEE92BC55CDF0098A476 /* Reciplease.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -63,7 +63,7 @@
 		70A146772BB9584800C81CB4 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		70A146792BB9A95500C81CB4 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		70A1467B2BB9A99700C81CB4 /* ListOfRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRecipeViewController.swift; sourceTree = "<group>"; };
-		70F6FD0A2C388E3200E16413 /* coreDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = coreDataModel.swift; sourceTree = "<group>"; };
+		70F6FD0A2C388E3200E16413 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		70F7EEEC2BC55CDF0098A476 /* Reciplease.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Reciplease.xcdatamodel; sourceTree = "<group>"; };
 		70F7EEF42BC5695E0098A476 /* Reciplease.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Reciplease.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -189,7 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				70F7EEE92BC55CDF0098A476 /* Reciplease.xcdatamodeld */,
-				70F6FD0A2C388E3200E16413 /* coreDataModel.swift */,
+				70F6FD0A2C388E3200E16413 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 				7025FA2B2BFF2264001ADED8 /* ListOfFavoriteRecipeViewController.swift in Sources */,
 				70A146782BB9584800C81CB4 /* FavoriteViewController.swift in Sources */,
 				7010E40F2BC6B86F0048D08F /* config.swift in Sources */,
-				70F6FD0B2C388E3200E16413 /* coreDataModel.swift in Sources */,
+				70F6FD0B2C388E3200E16413 /* CoreDataManager.swift in Sources */,
 				7046FE922BCE6B9B00D2D67E /* RecipesResponses.swift in Sources */,
 				708AF1942BBBEDF300164C7A /* RecipeTableViewCell.swift in Sources */,
 				70F7EEED2BC55CDF0098A476 /* Reciplease.xcdatamodeld in Sources */,

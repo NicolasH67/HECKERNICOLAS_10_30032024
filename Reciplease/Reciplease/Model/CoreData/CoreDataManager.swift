@@ -1,5 +1,5 @@
 //
-//  coreDatamModel.swift
+//  CoreDataManager.swift
 //  Reciplease
 //
 //  Created by Nicolas Hecker on 05/07/2024.
@@ -8,10 +8,13 @@
 import Foundation
 import CoreData
 
-class careDataModel {
+class CoreDataManager {
+    private let context: NSManagedObjectContext
+    init(context: NSManagedObjectContext) {
+        self.context = context
+    }
     
-    func checkFavoriteStatus(for recipeLabel: String, appDelegate: AppDelegate) -> Bool {
-        let context = appDelegate.persistentContainer.viewContext
+    func checkFavoriteStatus(for recipeLabel: String) -> Bool {
         let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
         request.predicate = NSPredicate(format: "label == %@", recipeLabel)
         
@@ -24,8 +27,7 @@ class careDataModel {
         }
     }
     
-    func addToFavorite(for recipe: RecipeRepresentable?, appDelegate: AppDelegate) {
-        let context = appDelegate.persistentContainer.viewContext
+    func addToFavorite(for recipe: RecipeRepresentable?) {
         let recipeEntity = RecipeEntity(context: context)
         recipeEntity.label = recipe?.recipeTitle
         recipeEntity.image = recipe?.image
@@ -33,11 +35,10 @@ class careDataModel {
         recipeEntity.time = Int32(recipe?.time ?? 0)
         recipeEntity.ingredients = recipe?.ingredients as? [String]
         recipeEntity.shareAs = recipe?.shareAs
-        appDelegate.saveContext()
+        try? context.save()
     }
     
-    func removeToFavorite(for recipeLabel: String, appDelegate: AppDelegate) {
-        let context = appDelegate.persistentContainer.viewContext
+    func removeToFavorite(for recipeLabel: String) {
         let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
         
         request.predicate = NSPredicate(format: "label == %@", recipeLabel)
