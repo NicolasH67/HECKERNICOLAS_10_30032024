@@ -65,7 +65,23 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
                 print(error)
             }
             self.isLoading = false
+            
+            DispatchQueue.main.async {
+                if self.recipesList.isEmpty {
+                    print("list is emptye")
+                    self.showEmptyListAlert(message: "Please go back and try different ingredients.", title: "No Recipes Found")
+                }
+            }
         }
+    }
+    
+    func showEmptyListAlert(message: String, title: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
