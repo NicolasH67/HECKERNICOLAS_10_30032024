@@ -62,7 +62,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
                     self.recipeTableView.reloadData()
                 }
             case .failure(let error):
-                print(error)
+                self.showEmptyListAlert(message: "There is a problem with the server", title: "Server error")
             }
             self.isLoading = false
             
