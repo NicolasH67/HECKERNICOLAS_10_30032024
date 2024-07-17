@@ -61,7 +61,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
                 DispatchQueue.main.async {
                     self.recipeTableView.reloadData()
                 }
-            case .failure(let error):
+            case .failure(_):
                 self.showEmptyListAlert(message: "There is a problem with the server", title: "Server error")
             }
             self.isLoading = false

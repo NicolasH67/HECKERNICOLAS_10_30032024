@@ -22,6 +22,7 @@ class CoreDataManager {
             let results = try context.fetch(request)
             return !results.isEmpty
         } catch {
+            #warning("verifier le print")
             print("Error fetching favorite status: \(error.localizedDescription)")
             return false
         }

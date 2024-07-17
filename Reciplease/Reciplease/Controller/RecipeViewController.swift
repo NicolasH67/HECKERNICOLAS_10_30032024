@@ -42,6 +42,8 @@ class RecipeViewController: UIViewController {
         }
     }
     
+    let imageLoader = ImageLoader()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,32 +54,87 @@ class RecipeViewController: UIViewController {
             recipeTitleLabel.text = recipeTitle
         }
         
+        updateFavoriteStatus()
+        loadImage()
+    }
+    
+    private func updateFavoriteStatus() {
         guard let recipeTitleText = recipeTitleLabel.text else { return }
-        let isFavorite = {
-            return self.dataModel?.checkFavoriteStatus(for: recipeTitleText) ?? false
+        let isFavorite = dataModel?.checkFavoriteStatus(for: recipeTitleText)
+        favoriteBarButtomItem.image = UIImage(systemName: isFavorite! ? "star.fill" : "star")
+    }
+    
+    private func loadImage() {
+        guard let imageUrlString = recipe?.image, let imageUrl = URL(string: imageUrlString) else {
+            setDefaultImage()
+            return
         }
         
-        if isFavorite() {
-            favoriteBarButtomItem.image = UIImage(systemName: "star.fill")
-        } else {
-            favoriteBarButtomItem.image = UIImage(systemName: "star")
-        }
-        
-        if let imageUrlString = recipe?.image, let imageUrl = URL(string: imageUrlString) {
-            ImageLoader.downloadImage(from: imageUrl) { imageData in
-                if let data = imageData, let image = UIImage(data: data) {
+        imageLoader.fetchImage(from: imageUrl) { result in
+            switch result {
+            case .success(let data):
+                if let image = UIImage(data: data) {
                     DispatchQueue.main.async {
                         self.setBackgroundImage(image, for: self.imageView)
                     }
+                } else {
+                    self.setDefaultImage()
                 }
-            }
-        } else {
-            guard let image = UIImage(named: "defaultImage") else { return }
-            DispatchQueue.main.async {
-                self.setBackgroundImage(image, for: self.imageView)
+            case .failure:
+                self.setDefaultImage()
             }
         }
     }
+    
+    private func setDefaultImage() {
+        guard let image = UIImage(named: "defaultImage") else { return }
+        DispatchQueue.main.async {
+            self.setBackgroundImage(image, for: self.imageView)
+        }
+    }
+    
+    private func setBackgroundImage(_ image: UIImage, for imageView: UIImageView) {
+        imageView.image = image
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+    }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        dataModel = CoreDataManager(context: appDelegate.persistentContainer.viewContext)
+//        
+//        if let recipeTitle = recipe?.recipeTitle {
+//            recipeTitleLabel.text = recipeTitle
+//        }
+//        
+//        guard let recipeTitleText = recipeTitleLabel.text else { return }
+//        let isFavorite = {
+//            return self.dataModel?.checkFavoriteStatus(for: recipeTitleText) ?? false
+//        }
+//        
+//        if isFavorite() {
+//            favoriteBarButtomItem.image = UIImage(systemName: "star.fill")
+//        } else {
+//            favoriteBarButtomItem.image = UIImage(systemName: "star")
+//        }
+//        
+//        if let imageUrlString = recipe?.image, let imageUrl = URL(string: imageUrlString) {
+//            ImageLoader.downloadImage(from: imageUrl) { imageData in
+//                if let data = imageData, let image = UIImage(data: data) {
+//                    DispatchQueue.main.async {
+//                        self.setBackgroundImage(image, for: self.imageView)
+//                    }
+//                }
+//            }
+//        } else {
+//            guard let image = UIImage(named: "defaultImage") else { return }
+//            DispatchQueue.main.async {
+//                self.setBackgroundImage(image, for: self.imageView)
+//            }
+//        }
+//    }
     
     func setBackgroundImage(_ image: UIImage, for view: UIView) {
         let backgroundLayer = CALayer()

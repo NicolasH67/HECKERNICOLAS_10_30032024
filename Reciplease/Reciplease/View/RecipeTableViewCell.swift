@@ -63,23 +63,36 @@ class RecipeTableViewCell: UITableViewCell {
         recipeIngrediantTableViewCellUILabel.text = recipe.ingredients?.joined(separator: ", ")
     }
     
+    let imageLoader = ImageLoader()
+
     func loadImage(url: String) {
         if let imageUrl = URL(string: url) {
-            ImageLoader.downloadImage(from: imageUrl) { imageData in
-                if let data = imageData, let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.recipeImageView?.image = image
-                        self.recipeImageView?.contentMode = .scaleAspectFill
-                        self.recipeImageView?.clipsToBounds = true
+            imageLoader.fetchImage(from: imageUrl) { result in
+                switch result {
+                case .success(let data):
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self.recipeImageView?.image = image
+                            self.recipeImageView?.contentMode = .scaleAspectFill
+                            self.recipeImageView?.clipsToBounds = true
+                        }
+                    } else {
+                        self.setDefaultImage()
                     }
+                case .failure:
+                    self.setDefaultImage()
                 }
             }
         } else {
-            DispatchQueue.main.async {
-                self.recipeImageView?.image = UIImage(named: "defaultImage")
-                self.recipeImageView?.contentMode = .scaleAspectFill
-                self.recipeImageView?.clipsToBounds = true
-            }
+            setDefaultImage()
+        }
+    }
+
+    private func setDefaultImage() {
+        DispatchQueue.main.async {
+            self.recipeImageView?.image = UIImage(named: "defaultImage")
+            self.recipeImageView?.contentMode = .scaleAspectFill
+            self.recipeImageView?.clipsToBounds = true
         }
     }
 }
