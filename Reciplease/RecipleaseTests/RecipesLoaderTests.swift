@@ -6,30 +6,168 @@
 //
 
 import XCTest
+@testable import Reciplease
 
-final class RecipesLoaderTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class MockHttpClient: HttpClient {
+    var result: Result<Data, Error>?
+    
+    init(result: Result<Data, Error>? = nil) {
+        self.result = result
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func request(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
+        if let result = result {
+            completion(result)
         }
     }
+}
 
+final class RecipesLoaderTests: XCTestCase {
+    func testFetchRecipesSuccess() {
+        let mockClient = MockHttpClient()
+        let loader = RecipesLoader(client: mockClient)
+        
+        let jsonString = """
+        {
+            "q": "label",
+            "from": 0,
+            "to": 10,
+            "more": true,
+            "count": 1,
+            "hits": [
+                {
+                    "recipe": {
+                        "label": "recipelabel",
+                        "image": "http://www.urlTest.com",
+                        "shareAs": "http://www.urlTest.com",
+                        "ingredients": [
+                            {
+                                "text": "ingredientsLabel",
+                                "quantity": 0.5,
+                                "measure": "cup",
+                                "food": "olive oil",
+                                "weight": 108,
+                                "foodCategory": "Oils",
+                                "foodId": "food_b1d1icuad3iktrbqby0hiagafaz7",
+                                "image": "https://www.edamam.com/food-img/abcd/abcd123.jpg"
+                            }
+                        ],
+                        "calories": 3000,
+                        "totalTime": 60,
+                    }
+                }
+            ],
+        }
+        """
+        let data = jsonString.data(using: .utf8)!
+        mockClient.result = .success(data)
+        
+        let expectation = self.expectation(description: "Completion called")
+        
+        loader.fetchRecipes(ingredients: ["label"], from: 0, to: 10) { result in
+            switch result {
+            case .success(let recipesResponse):
+                let recipe = recipesResponse.hits.first?.recipe
+                XCTAssertEqual(recipesResponse.q, "label")
+                XCTAssertEqual(recipe?.label, "recipelabel")
+                XCTAssertEqual(recipe?.calories, 3000)
+                XCTAssertEqual(recipe?.totalTime, 60)
+                XCTAssertEqual(recipe?.ingredients.first?.text, "ingredientsLabel")
+                XCTAssertEqual(recipe?.shareAs, "http://www.urlTest.com")
+                XCTAssertEqual(recipe?.image, "http://www.urlTest.com")
+            case .failure(let error):
+                XCTFail("Expected success but got failure with \(error)")
+            }
+        expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testFetchRecipesFail() {
+        let mockClient = MockHttpClient()
+        let loader = RecipesLoader(client: mockClient)
+
+        mockClient.result = .failure(NSError(domain: "Test", code: 0, userInfo: nil))
+        
+        let expectation = self.expectation(description: "Completion called")
+        
+        loader.fetchRecipes(ingredients: ["label"], from: 0, to: 10) { result in
+            switch result {
+            case .success(let recipes):
+                XCTFail("Expected failure but got success with \(recipes)")
+            case .failure(let error):
+                XCTAssertNotNil(error, "Expected an error but got nil")
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testFetchRecipesNoData() {
+        let mockClient = MockHttpClient()
+        let loader = RecipesLoader(client: mockClient)
+        
+        // Simuler une réponse sans données
+        let jsonString = """
+            {
+                "q": "label",
+                "from": 0,
+                "to": 10,
+                "more": true,
+                "count": 1,
+                "hits": []
+            }
+        """
+        let data = jsonString.data(using: .utf8)!
+        mockClient.result = .success(data)
+        
+        let expectation = self.expectation(description: "Completion called")
+        
+        loader.fetchRecipes(ingredients: ["label"], from: 0, to: 10) { result in
+            switch result {
+            case .success(let recipesResponse):
+                XCTAssertTrue(recipesResponse.hits.isEmpty, "Expected no recipes but got some")
+            case .failure(let error):
+                XCTFail("Expected success but got failure with error: \(error)")
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testFetchRecipesInvalidData() {
+        let mockClient = MockHttpClient()
+        let loader = RecipesLoader(client: mockClient)
+        
+        let jsonString = """
+            {
+                "q": "label",
+                "from": 0,
+                "to": 10,
+                "more": true,
+                "count": 1,
+                "hits": ["invalid_data"]
+            }
+        """
+        let data = jsonString.data(using: .utf8)!
+        mockClient.result = .success(data)
+        
+        let expectation = self.expectation(description: "Completion called")
+        
+        loader.fetchRecipes(ingredients: ["label"], from: 0, to: 10) { result in
+            switch result {
+            case .success(let recipesResponse):
+                XCTFail("Expected failure but got success with \(recipesResponse)")
+            case .failure(let error):
+                XCTAssertNotNil(error, "Expected an error but got nil")
+            }
+            expectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
 }

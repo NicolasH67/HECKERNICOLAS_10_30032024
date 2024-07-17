@@ -14,7 +14,6 @@ struct RecipesResponses: Decodable {
     let more: Bool
     let count: Int
     let hits: [Hit]
-    let _links: Links?
 }
 
 // MARK: - Hit
@@ -24,30 +23,12 @@ struct Hit: Decodable {
 
 // MARK: - Recipe
 struct Recipe: Decodable {
-    let uri: String
     let label: String
     let image: String
-    let source: String
-    let url: String
     let shareAs: String
-    let yield: Int
-    let healthLabels: [String]
-    let ingredientLines: [String]
     let ingredients: [Ingredient]
-    let calories, totalWeight: Double
+    let calories: Double
     let totalTime: Int
-    let totalNutrients, totalDaily: [String: Total]
-    let tags: [String]?
-}
-
-struct Links: Decodable {
-    let `self`: Link
-    let next: Link
-}
-
-struct Link: Decodable {
-    let href: String
-    let title: String
 }
 
 enum Unit: String, Decodable {
