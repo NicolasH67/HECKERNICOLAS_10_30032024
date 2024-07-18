@@ -15,9 +15,6 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
     var recipesList = [RecipeEntity]()
     let RecipeCellIdentifier = "RecipeCellIdentifier"
     var ingredientsRecipe: [String] = []
-    var ingredients: [String] = ["Chocolate"]
-    var lastRecipe: Int = 0
-    var imageCache = NSCache<NSString, UIImage>()
     
     var selectedRecipe: RecipeRepresentable?
 
