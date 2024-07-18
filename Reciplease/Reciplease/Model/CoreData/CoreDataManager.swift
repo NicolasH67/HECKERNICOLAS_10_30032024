@@ -9,9 +9,22 @@ import Foundation
 import CoreData
 
 class CoreDataManager {
+    var recipesList: [RecipeEntity] = []
+    
     private let context: NSManagedObjectContext
     init(context: NSManagedObjectContext) {
         self.context = context
+    }
+    
+    func loadRecipes() {
+        let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        
+        do {
+            let recipes = try context.fetch(fetchRequest)
+            recipesList = recipes
+        } catch {
+            print("Failed to fetch recipes: \(error.localizedDescription)")
+        }
     }
     
     func checkFavoriteStatus(for recipeLabel: String) -> Bool {

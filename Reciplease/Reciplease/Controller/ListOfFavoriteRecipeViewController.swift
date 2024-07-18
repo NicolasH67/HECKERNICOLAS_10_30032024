@@ -14,7 +14,6 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
 
     var recipesList = [RecipeEntity]()
     let RecipeCellIdentifier = "RecipeCellIdentifier"
-    let loader = RecipesLoader()
     var ingredientsRecipe: [String] = []
     var ingredients: [String] = ["Chocolate"]
     var lastRecipe: Int = 0
@@ -54,15 +53,11 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        let loader = CoreDataManager(context: context)
         
-        do {
-            let recipes = try context.fetch(fetchRequest)
-            recipesList = recipes
-            lastRecipe = recipesList.count
-        } catch {
-            print("Failed to fetch recipes: \(error.localizedDescription)")
-        }
+        loader.loadRecipes()
+        
+        recipesList = loader.recipesList
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
