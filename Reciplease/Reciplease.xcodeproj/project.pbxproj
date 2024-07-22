@@ -16,6 +16,7 @@
 		7046FE9E2BDBDED700D2D67E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7046FE9D2BDBDED700D2D67E /* ImageLoader.swift */; };
 		704CCBC22C47B54F00FE8895 /* RecipesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704CCBC12C47B54F00FE8895 /* RecipesLoaderTests.swift */; };
 		704CCBC42C484A6A00FE8895 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704CCBC32C484A6A00FE8895 /* ImageLoaderTests.swift */; };
+		704CCBC62C48F55D00FE8895 /* CoreDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704CCBC52C48F55D00FE8895 /* CoreDataManagerTests.swift */; };
 		708AF1942BBBEDF300164C7A /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708AF1922BBBEDF300164C7A /* RecipeTableViewCell.swift */; };
 		708AF1952BBBEDF300164C7A /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 708AF1932BBBEDF300164C7A /* RecipeTableViewCell.xib */; };
 		70A146422BB89ECA00C81CB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146412BB89ECA00C81CB4 /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		7046FE9D2BDBDED700D2D67E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		704CCBC12C47B54F00FE8895 /* RecipesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesLoaderTests.swift; sourceTree = "<group>"; };
 		704CCBC32C484A6A00FE8895 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
+		704CCBC52C48F55D00FE8895 /* CoreDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManagerTests.swift; sourceTree = "<group>"; };
 		7081BCCA2C47B4910029EDCF /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		708AF1922BBBEDF300164C7A /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		708AF1932BBBEDF300164C7A /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			children = (
 				704CCBC12C47B54F00FE8895 /* RecipesLoaderTests.swift */,
 				704CCBC32C484A6A00FE8895 /* ImageLoaderTests.swift */,
+				704CCBC52C48F55D00FE8895 /* CoreDataManagerTests.swift */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				704CCBC42C484A6A00FE8895 /* ImageLoaderTests.swift in Sources */,
+				704CCBC62C48F55D00FE8895 /* CoreDataManagerTests.swift in Sources */,
 				704CCBC22C47B54F00FE8895 /* RecipesLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
