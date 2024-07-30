@@ -21,7 +21,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
     var segue: String = ""
     
     var selectedRecipe: RecipeRepresentable?
-
+    var activityIndicator: UIActivityIndicatorView!
 
     var currentPage = 1
     var isLoading = false
@@ -40,6 +40,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
         recipeTableView.reloadData()
         recipeTableView.rowHeight = 150
 
+        setupActivityIndicator()
         loadRecipes(from: 0, to: 10)
 
         recipeTableView.delegate = self
@@ -49,9 +50,20 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
         super.viewWillAppear(animated)
         recipeTableView.reloadData()
     }
+    
+    func setupActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = .white
+        activityIndicator.hidesWhenStopped = true
+        let size: CGFloat = 100
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+    }
 
     func loadRecipes(from: Int, to: Int) {
         isLoading = true
+        activityIndicator.startAnimating()
 
         loader.fetchRecipes(ingredients: ingredients, from: from, to: to) { result in
             switch result {
@@ -67,6 +79,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
             self.isLoading = false
             
             DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
                 if self.recipesList.isEmpty {
                     print("list is emptye")
                     self.showEmptyListAlert(message: "Please go back and try different ingredients.", title: "No Recipes Found")

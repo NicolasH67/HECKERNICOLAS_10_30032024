@@ -60,7 +60,7 @@ class RecipeViewController: UIViewController {
     
     private func updateFavoriteStatus() {
         guard let recipeTitleText = recipeTitleLabel.text else { return }
-        let isFavorite = dataModel?.checkFavoriteStatus(for: recipeTitleText)
+        let isFavorite = try? dataModel?.checkFavoriteStatus(for: recipeTitleText)
         favoriteBarButtomItem.image = UIImage(systemName: isFavorite! ? "star.fill" : "star")
     }
     

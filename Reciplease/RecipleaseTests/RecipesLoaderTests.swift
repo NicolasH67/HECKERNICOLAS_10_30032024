@@ -27,40 +27,7 @@ final class RecipesLoaderTests: XCTestCase {
         let mockClient = MockHttpClient()
         let loader = RecipesLoader(client: mockClient)
         
-        let jsonString = """
-        {
-            "q": "label",
-            "from": 0,
-            "to": 10,
-            "more": true,
-            "count": 1,
-            "hits": [
-                {
-                    "recipe": {
-                        "label": "recipelabel",
-                        "image": "http://www.urlTest.com",
-                        "shareAs": "http://www.urlTest.com",
-                        "ingredients": [
-                            {
-                                "text": "ingredientsLabel",
-                                "quantity": 0.5,
-                                "measure": "cup",
-                                "food": "olive oil",
-                                "weight": 108,
-                                "foodCategory": "Oils",
-                                "foodId": "food_b1d1icuad3iktrbqby0hiagafaz7",
-                                "image": "https://www.edamam.com/food-img/abcd/abcd123.jpg"
-                            }
-                        ],
-                        "calories": 3000,
-                        "totalTime": 60,
-                    }
-                }
-            ],
-        }
-        """
-        let data = jsonString.data(using: .utf8)!
-        mockClient.result = .success(data)
+        mockClient.result = .success(anyData())
         
         let expectation = self.expectation(description: "Completion called")
         
@@ -96,8 +63,8 @@ final class RecipesLoaderTests: XCTestCase {
             switch result {
             case .success(let recipes):
                 XCTFail("Expected failure but got success with \(recipes)")
-            case .failure(let error):
-                XCTAssertNotNil(error, "Expected an error but got nil")
+            default :
+                break
             }
             expectation.fulfill()
         }
@@ -109,19 +76,7 @@ final class RecipesLoaderTests: XCTestCase {
         let mockClient = MockHttpClient()
         let loader = RecipesLoader(client: mockClient)
         
-        // Simuler une réponse sans données
-        let jsonString = """
-            {
-                "q": "label",
-                "from": 0,
-                "to": 10,
-                "more": true,
-                "count": 1,
-                "hits": []
-            }
-        """
-        let data = jsonString.data(using: .utf8)!
-        mockClient.result = .success(data)
+        mockClient.result = .success(noData())
         
         let expectation = self.expectation(description: "Completion called")
         
@@ -141,19 +96,8 @@ final class RecipesLoaderTests: XCTestCase {
     func testFetchRecipesInvalidData() {
         let mockClient = MockHttpClient()
         let loader = RecipesLoader(client: mockClient)
-        
-        let jsonString = """
-            {
-                "q": "label",
-                "from": 0,
-                "to": 10,
-                "more": true,
-                "count": 1,
-                "hits": ["invalid_data"]
-            }
-        """
-        let data = jsonString.data(using: .utf8)!
-        mockClient.result = .success(data)
+
+        mockClient.result = .success(invalidDate())
         
         let expectation = self.expectation(description: "Completion called")
         
@@ -168,5 +112,69 @@ final class RecipesLoaderTests: XCTestCase {
         }
         
         waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func anyData() -> Data {
+        let jsonString = """
+        {
+            "q": "label",
+            "from": 0,
+            "to": 10,
+            "more": true,
+            "count": 1,
+            "hits": [
+                {
+                    "recipe": {
+                        "label": "recipelabel",
+                        "image": "http://www.urlTest.com",
+                        "shareAs": "http://www.urlTest.com",
+                        "ingredients": [
+                            {
+                                "text": "ingredientsLabel",
+                                "quantity": 0.5,
+                                "measure": "cup",
+                                "food": "olive oil",
+                                "weight": 108,
+                                "foodCategory": "Oils",
+                                "foodId": "food_b1d1icuad3iktrbqby0hiagafaz7",
+                                "image": "https://www.edamam.com/food-img/abcd/abcd123.jpg"
+                            }
+                        ],
+                        "calories": 3000,
+                        "totalTime": 60,
+                    }
+                }
+            ],
+        }
+        """
+        return jsonString.data(using: .utf8)!
+    }
+    
+    func invalidDate() -> Data {
+        let jsonString = """
+            {
+                "q": "label",
+                "from": 0,
+                "to": 10,
+                "more": true,
+                "count": 1,
+                "hits": ["invalid_data"]
+            }
+        """
+        return jsonString.data(using: .utf8)!
+    }
+    
+    func noData() -> Data {
+        let jsonString = """
+            {
+                "q": "label",
+                "from": 0,
+                "to": 10,
+                "more": true,
+                "count": 1,
+                "hits": []
+            }
+        """
+        return jsonString.data(using: .utf8)!
     }
 }

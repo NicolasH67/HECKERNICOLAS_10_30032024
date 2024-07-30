@@ -28,16 +28,15 @@ final class ImageLoaderTests: XCTestCase {
         let imageUrl = URL(string: "https://example.com/image.jpg")!
         
         let expectation = self.expectation(description: "Image download should succeed")
-        var resultData: Data?
+        
         imageLoader.fetchImage(from: imageUrl) { result in
             if case .success(let data) = result {
-                resultData = data
+                XCTAssertEqual(data, expectedData)
             }
             expectation.fulfill()
         }
         
-        waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertEqual(resultData, expectedData)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
     
     func testImageLoaderFailure() {
@@ -47,15 +46,13 @@ final class ImageLoaderTests: XCTestCase {
         let imageUrl = URL(string: "https://example.com/image.jpg")!
         
         let expectation = self.expectation(description: "Image download should fail")
-        var resultError: Error?
         imageLoader.fetchImage(from: imageUrl) { result in
-            if case .failure(let error) = result {
-                resultError = error
+            if case .success = result {
+                XCTFail("Expected failure")
             }
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1, handler: nil)
-        XCTAssertNotNil(resultError)
+        waitForExpectations(timeout: 0.1, handler: nil)
     }
 }

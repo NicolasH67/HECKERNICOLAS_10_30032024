@@ -37,15 +37,23 @@ final class CoreDataManagerTests: XCTestCase {
     }
 
     func testLoadRecipes() throws {
-        let recipe = RecipeEntity(context: context)
-        recipe.label = "Test Recipe"
+        let recipe = Recipe(
+            label: "Recipe Test",
+            image: "www.testUrl.fr",
+            shareAs: "www.testUrl.fr",
+            ingredients: [Ingredient(text: "ingredients1", quantity: 0.0, measure: nil, food: "ingredients", weight: 0.0, foodCategory: "food", foodID: "0", image: nil)],
+            calories: 30.99,
+            totalTime: 43
+        )
         
-        try context.save()
+        let testRecipe = RecipeRepresentable(recipe: recipe)
 
-        recipeModel.loadRecipes()
+        recipeModel.addToFavorite(for: testRecipe)
         
-        XCTAssertEqual(recipeModel.recipesList.count, 1)
-        XCTAssertEqual(recipeModel.recipesList.first?.label, "Test Recipe")
+        let recipes = try recipeModel.loadRecipes()
+        
+        XCTAssertEqual(recipes.count, 1)
+        XCTAssertEqual(recipes.first?.label, "Recipe Test")
     }
     
     func testCheckFavoriteStatusEqualTrue() throws {
@@ -55,7 +63,7 @@ final class CoreDataManagerTests: XCTestCase {
             
         try context.save()
         
-        let isFavorite = recipeModel.checkFavoriteStatus(for: recipeLabel)
+        let isFavorite = try recipeModel.checkFavoriteStatus(for: recipeLabel)
         
         XCTAssertTrue(isFavorite)
     }
@@ -63,7 +71,7 @@ final class CoreDataManagerTests: XCTestCase {
     func testCheckFavoriteStatusEqualFalse() throws {
         let recipeLabel = "Test Recipe"
         
-        let isFavorite = recipeModel.checkFavoriteStatus(for: recipeLabel)
+        let isFavorite = try recipeModel.checkFavoriteStatus(for: recipeLabel)
         
         XCTAssertFalse(isFavorite)
     }
@@ -121,16 +129,13 @@ final class CoreDataManagerTests: XCTestCase {
         
         recipeModel.addToFavorite(for: testRecipe)
         
-        let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "label == %@", testRecipe.recipeTitle)
-            
-        let results = try context.fetch(fetchRequest)
+        let recipes = try recipeModel.loadRecipes()
         
-        XCTAssertEqual(results.count, 1)
-        XCTAssertEqual(results.first?.label, testRecipe.recipeTitle)
-        XCTAssertEqual(results.first?.calories, testRecipe.calorie)
-        XCTAssertEqual(results.first?.time, Int32(testRecipe.time ?? 0))
-        XCTAssertEqual(results.first?.ingredients, testRecipe.ingredients)
-        XCTAssertEqual(results.first?.shareAs, testRecipe.shareAs)
+        XCTAssertEqual(recipes.count, 1)
+        XCTAssertEqual(recipes.first?.label, testRecipe.recipeTitle)
+        XCTAssertEqual(recipes.first?.calories, testRecipe.calorie)
+        XCTAssertEqual(recipes.first?.time, Int32(testRecipe.time ?? 0))
+        XCTAssertEqual(recipes.first?.ingredients, testRecipe.ingredients)
+        XCTAssertEqual(recipes.first?.shareAs, testRecipe.shareAs)
     }
 }

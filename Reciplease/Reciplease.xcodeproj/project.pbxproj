@@ -25,7 +25,6 @@
 		70A1464B2BB89ECB00C81CB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70A1464A2BB89ECB00C81CB4 /* Assets.xcassets */; };
 		70A1464E2BB89ECB00C81CB4 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 70A1464D2BB89ECB00C81CB4 /* Base */; };
 		70A146762BB8AAC800C81CB4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146752BB8AAC800C81CB4 /* HomeViewController.swift */; };
-		70A146782BB9584800C81CB4 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146772BB9584800C81CB4 /* FavoriteViewController.swift */; };
 		70A1467A2BB9A95500C81CB4 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A146792BB9A95500C81CB4 /* RecipeViewController.swift */; };
 		70A1467C2BB9A99700C81CB4 /* ListOfRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A1467B2BB9A99700C81CB4 /* ListOfRecipeViewController.swift */; };
 		70F6FD0B2C388E3200E16413 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F6FD0A2C388E3200E16413 /* CoreDataManager.swift */; };
@@ -63,7 +62,6 @@
 		70A1464D2BB89ECB00C81CB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70A1464F2BB89ECB00C81CB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70A146752BB8AAC800C81CB4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		70A146772BB9584800C81CB4 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		70A146792BB9A95500C81CB4 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		70A1467B2BB9A99700C81CB4 /* ListOfRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfRecipeViewController.swift; sourceTree = "<group>"; };
 		70F6FD0A2C388E3200E16413 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 			isa = PBXGroup;
 			children = (
 				70A146752BB8AAC800C81CB4 /* HomeViewController.swift */,
-				70A146772BB9584800C81CB4 /* FavoriteViewController.swift */,
 				70A146792BB9A95500C81CB4 /* RecipeViewController.swift */,
 				70A1467B2BB9A99700C81CB4 /* ListOfRecipeViewController.swift */,
 				7025FA2A2BFF2264001ADED8 /* ListOfFavoriteRecipeViewController.swift */,
@@ -333,7 +330,6 @@
 				7046FE982BCE724D00D2D67E /* RecipesLoader.swift in Sources */,
 				70A146442BB89ECA00C81CB4 /* SceneDelegate.swift in Sources */,
 				7025FA2B2BFF2264001ADED8 /* ListOfFavoriteRecipeViewController.swift in Sources */,
-				70A146782BB9584800C81CB4 /* FavoriteViewController.swift in Sources */,
 				7010E40F2BC6B86F0048D08F /* config.swift in Sources */,
 				70F6FD0B2C388E3200E16413 /* CoreDataManager.swift in Sources */,
 				7046FE922BCE6B9B00D2D67E /* RecipesResponses.swift in Sources */,

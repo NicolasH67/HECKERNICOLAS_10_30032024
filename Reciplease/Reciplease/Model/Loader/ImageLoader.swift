@@ -8,12 +8,10 @@
 import Foundation
 import Alamofire
 
-// Define the protocol for the image downloader
 protocol ImageDownloader {
     func downloadImage(from url: URL, completion: @escaping (Result<Data, Error>) -> Void)
 }
 
-// Implement the Alamofire-based image downloader
 class AlamofireImageDownloader: ImageDownloader {
     func downloadImage(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         AF.request(url).responseData { response in
@@ -27,7 +25,6 @@ class AlamofireImageDownloader: ImageDownloader {
     }
 }
 
-// Example usage class for image downloading
 class ImageLoader {
     private let downloader: ImageDownloader
     

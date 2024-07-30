@@ -52,9 +52,9 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
         
         let loader = CoreDataManager(context: context)
         
-        loader.loadRecipes()
-        
-        recipesList = loader.recipesList
+        do {
+            let recipesList = loader.recipesList
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

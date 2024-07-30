@@ -16,29 +16,22 @@ class CoreDataManager {
         self.context = context
     }
     
-    func loadRecipes() {
+    func loadRecipes() throws -> [RecipeEntity] {
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         
-        do {
-            let recipes = try context.fetch(fetchRequest)
-            recipesList = recipes
-        } catch {
-            print("Failed to fetch recipes: \(error.localizedDescription)")
-        }
+        return try context.fetch(fetchRequest)
     }
     
-    func checkFavoriteStatus(for recipeLabel: String) -> Bool {
+    func checkFavoriteStatus(for recipeLabel: String) throws -> Bool {
         let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
         request.predicate = NSPredicate(format: "label == %@", recipeLabel)
         
-        do {
-            let results = try context.fetch(request)
-            return !results.isEmpty
-        } catch {
-            #warning("verifier le print")
-            print("Error fetching favorite status: \(error.localizedDescription)")
+        let recipes = try context.fetch(request)
+        
+        if recipes.isEmpty {
             return false
         }
+        return true
     }
     
     func addToFavorite(for recipe: RecipeRepresentable?) {
