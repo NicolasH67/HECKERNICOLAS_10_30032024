@@ -88,6 +88,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		701B5C662C6214D20052DAD9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				701B5C682C6214EF0052DAD9 /* CoreData */,
+				701B5C672C6214E10052DAD9 /* Loader */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		701B5C672C6214E10052DAD9 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				704CCBC12C47B54F00FE8895 /* RecipesLoaderTests.swift */,
+				704CCBC32C484A6A00FE8895 /* ImageLoaderTests.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		701B5C682C6214EF0052DAD9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				704CCBC52C48F55D00FE8895 /* CoreDataManagerTests.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		7046FE902BCE6B7100D2D67E /* Response */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +142,7 @@
 		7081BCCB2C47B4910029EDCF /* RecipleaseTests */ = {
 			isa = PBXGroup;
 			children = (
-				704CCBC12C47B54F00FE8895 /* RecipesLoaderTests.swift */,
-				704CCBC32C484A6A00FE8895 /* ImageLoaderTests.swift */,
-				704CCBC52C48F55D00FE8895 /* CoreDataManagerTests.swift */,
+				701B5C662C6214D20052DAD9 /* Model */,
 			);
 			path = RecipleaseTests;
 			sourceTree = "<group>";

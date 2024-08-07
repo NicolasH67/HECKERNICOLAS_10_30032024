@@ -50,18 +50,12 @@ class CoreDataManager {
         
         request.predicate = NSPredicate(format: "label == %@", recipeLabel)
         
-        do {
-            let results = try context.fetch(request)
-            
-            if let recipeToDelete = results.first {
-                context.delete(recipeToDelete)
-                
-                try context.save()
-            } else {
-                print("No recipe found with the title \(recipeLabel)")
-            }
-        } catch {
-            print("Failed to fetch or delete the recipe: \(error)")
-        }
+        guard let results = try? context.fetch(request) else { return }
+        
+        guard let recipeToDelete = results.first else { return }
+        
+        context.delete(recipeToDelete)
+        
+        try? context.save()
     }
 }

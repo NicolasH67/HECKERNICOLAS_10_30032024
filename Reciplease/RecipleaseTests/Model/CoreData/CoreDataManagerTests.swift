@@ -13,6 +13,15 @@ final class CoreDataManagerTests: XCTestCase {
     
     var context: NSManagedObjectContext!
     var recipeModel: CoreDataManager!
+    
+    let recipe = Recipe(
+        label: "Recipe Test",
+        image: "www.testUrl.fr",
+        shareAs: "www.testUrl.fr",
+        ingredients: [Ingredient(text: "ingredients1", quantity: 0.0, measure: nil, food: "ingredients", weight: 0.0, foodCategory: "food", foodID: "0", image: nil)],
+        calories: 30.99,
+        totalTime: 43
+    )
 
     override func setUpWithError() throws {
         try super.setUpWithError()
@@ -37,18 +46,7 @@ final class CoreDataManagerTests: XCTestCase {
     }
 
     func testLoadRecipes() throws {
-        let recipe = Recipe(
-            label: "Recipe Test",
-            image: "www.testUrl.fr",
-            shareAs: "www.testUrl.fr",
-            ingredients: [Ingredient(text: "ingredients1", quantity: 0.0, measure: nil, food: "ingredients", weight: 0.0, foodCategory: "food", foodID: "0", image: nil)],
-            calories: 30.99,
-            totalTime: 43
-        )
-        
-        let testRecipe = RecipeRepresentable(recipe: recipe)
-
-        recipeModel.addToFavorite(for: testRecipe)
+        recipeModel.addToFavorite(for: RecipeRepresentable(recipe: recipe))
         
         let recipes = try recipeModel.loadRecipes()
         
@@ -57,13 +55,9 @@ final class CoreDataManagerTests: XCTestCase {
     }
     
     func testCheckFavoriteStatusEqualTrue() throws {
-        let recipeLabel = "Test Recipe"
-        let recipe = RecipeEntity(context: context)
-        recipe.label = recipeLabel
-            
-        try context.save()
+        recipeModel.addToFavorite(for: RecipeRepresentable(recipe: recipe))
         
-        let isFavorite = try recipeModel.checkFavoriteStatus(for: recipeLabel)
+        let isFavorite = try recipeModel.checkFavoriteStatus(for: recipe.label)
         
         XCTAssertTrue(isFavorite)
     }
@@ -77,33 +71,25 @@ final class CoreDataManagerTests: XCTestCase {
     }
     
     func testRemoveToFavoriteSuccess() throws {
-        let recipeLabel = "Test Recipe"
-        let recipe = RecipeEntity(context: context)
-        recipe.label = recipeLabel
-        
-        try context.save()
+        recipeModel.addToFavorite(for: RecipeRepresentable(recipe: recipe))
         
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "label == %@", recipeLabel)
+        fetchRequest.predicate = NSPredicate(format: "label == %@", recipe.label)
         
         var results = try context.fetch(fetchRequest)
         XCTAssertEqual(results.count, 1)
         
-        recipeModel.removeToFavorite(for: recipeLabel)
+        recipeModel.removeToFavorite(for: recipe.label)
         
-        results = try context.fetch(fetchRequest)
+        results = try recipeModel.loadRecipes()
         XCTAssertEqual(results.count, 0)
     }
     
     func testRemoveToFavoriteFail() throws {
-        let recipeLabel = "Test Recipe"
-        let recipe = RecipeEntity(context: context)
-        recipe.label = recipeLabel
-        
-        try context.save()
+        recipeModel.addToFavorite(for: RecipeRepresentable(recipe: recipe))
         
         let fetchRequest: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "label == %@", recipeLabel)
+        fetchRequest.predicate = NSPredicate(format: "label == %@", recipe.label)
         
         var results = try context.fetch(fetchRequest)
         XCTAssertEqual(results.count, 1)
@@ -115,27 +101,15 @@ final class CoreDataManagerTests: XCTestCase {
     }
     
     func testAddToFavorite() throws {
-        
-        let recipe = Recipe(
-            label: "Recipe Test",
-            image: "www.testUrl.fr",
-            shareAs: "www.testUrl.fr",
-            ingredients: [Ingredient(text: "ingredients1", quantity: 0.0, measure: nil, food: "ingredients", weight: 0.0, foodCategory: "food", foodID: "0", image: nil)],
-            calories: 30.99,
-            totalTime: 43
-        )
-        
-        let testRecipe = RecipeRepresentable(recipe: recipe)
-        
-        recipeModel.addToFavorite(for: testRecipe)
+        recipeModel.addToFavorite(for: RecipeRepresentable(recipe: recipe))
         
         let recipes = try recipeModel.loadRecipes()
         
         XCTAssertEqual(recipes.count, 1)
-        XCTAssertEqual(recipes.first?.label, testRecipe.recipeTitle)
-        XCTAssertEqual(recipes.first?.calories, testRecipe.calorie)
-        XCTAssertEqual(recipes.first?.time, Int32(testRecipe.time ?? 0))
-        XCTAssertEqual(recipes.first?.ingredients, testRecipe.ingredients)
-        XCTAssertEqual(recipes.first?.shareAs, testRecipe.shareAs)
+        XCTAssertEqual(recipes.first?.label, recipe.label)
+        XCTAssertEqual(recipes.first?.calories, recipe.calories)
+        XCTAssertEqual(recipes.first?.time, Int32(recipe.totalTime))
+        XCTAssertEqual(recipes.first?.ingredients?.first, recipe.ingredients.first?.text)
+        XCTAssertEqual(recipes.first?.shareAs, recipe.shareAs)
     }
 }

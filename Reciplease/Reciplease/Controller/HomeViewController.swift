@@ -38,6 +38,10 @@ class HomeViewController: UIViewController {
     @IBAction func addButton(_ sender: Any) {
         addIngredients()
         ingrediantsTextField.resignFirstResponder()
+        
+        if let ingredientText = ingrediantsTextField.text, !ingredientText.isEmpty {
+            UIAccessibility.post(notification: .announcement, argument: "Ingredient \(ingredientText) added")
+        }
     }
     
     @IBAction func dissmissKeybord(_ sender: UITapGestureRecognizer) {
@@ -45,7 +49,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func searchRecipeButton(_ sender: Any) {
-        
+        UIAccessibility.post(notification: .announcement, argument: "Searching for recipes")
     }
     
     // MARK: - function
@@ -79,6 +83,9 @@ extension HomeViewController: UITableViewDataSource {
 
         cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
         cell.textLabel?.text = ingredient
+        
+        cell.accessibilityLabel = "Ingredient \(ingredient)"
+        cell.accessibilityTraits = .staticText
 
         return cell
     }
@@ -87,9 +94,12 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let removedIngredient = ingrediants[indexPath.row]
             ingrediants.remove(at: indexPath.row)
-            
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            // Notification d'accessibilité pour informer de la suppression d'un ingrédient
+            UIAccessibility.post(notification: .announcement, argument: "Ingredient \(removedIngredient) deleted")
         }
     }
 }

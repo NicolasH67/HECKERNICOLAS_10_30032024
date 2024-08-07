@@ -35,10 +35,12 @@ class RecipeViewController: UIViewController {
         if sender.image == starImage {
             sender.image = starFilledImage
             dataModel?.addToFavorite(for: recipe)
+            UIAccessibility.post(notification: .announcement, argument: "Recipe added to favorites")
         } else {
             sender.image = starImage
             guard let recipeTitleText = self.recipeTitleLabel.text else { return }
             dataModel?.removeToFavorite(for: recipeTitleText)
+            UIAccessibility.post(notification: .announcement, argument: "Recipe removed from favorites")
         }
     }
     
@@ -54,6 +56,7 @@ class RecipeViewController: UIViewController {
             recipeTitleLabel.text = recipeTitle
         }
         
+        configureAccessibility()
         updateFavoriteStatus()
         loadImage()
     }
@@ -104,6 +107,20 @@ class RecipeViewController: UIViewController {
         backgroundLayer.frame = view.bounds
         backgroundLayer.contents = image.cgImage
         view.layer.insertSublayer(backgroundLayer, at: 0)
+    }
+    
+    private func configureAccessibility() {
+        recipeTitleLabel.accessibilityLabel = "Recipe Title"
+        recipeTitleLabel.accessibilityTraits = .header
+        
+        getDirectionsButton.accessibilityLabel = "Get Directions"
+        getDirectionsButton.accessibilityHint = "Opens the recipe directions in a browser"
+        
+        favoriteBarButtomItem.accessibilityLabel = "Favorite"
+        favoriteBarButtomItem.accessibilityHint = "Adds or removes the recipe from favorites"
+        
+        recipeTableView.accessibilityLabel = "Ingredients List"
+        recipeTableView.accessibilityHint = "List of ingredients needed for the recipe"
     }
 }
 

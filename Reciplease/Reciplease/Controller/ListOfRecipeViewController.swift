@@ -44,6 +44,7 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
         loadRecipes(from: 0, to: 10)
 
         recipeTableView.delegate = self
+        configureAccessibility()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +122,15 @@ class ListOfRecipeViewController: UIViewController, UITableViewDelegate {
         selectedRecipe = RecipeRepresentable(recipe: recipesList[indexPath.row])
         performSegue(withIdentifier: "showDetailRecipe", sender: nil)
     }
+    
+    private func configureAccessibility() {
+        recipeTableView.accessibilityLabel = "Recipes List"
+        recipeTableView.accessibilityHint = "Shows the list of recipes based on the ingredients you provided"
+        recipeTableView.accessibilityTraits = .none
+        
+        activityIndicator.accessibilityLabel = "Loading indicator"
+        activityIndicator.accessibilityHint = "Indicates that recipes are being loaded"
+    }
 }
 
 extension ListOfRecipeViewController: UITableViewDataSource {
@@ -140,6 +150,10 @@ extension ListOfRecipeViewController: UITableViewDataSource {
         let recipe = recipesList[indexPath.row]
 
         cell.configure(with: RecipeRepresentable(recipe: recipe))
+        
+        cell.accessibilityLabel = "Recipe \(indexPath.row + 1)"
+        cell.accessibilityHint = "Double tap to view the recipe details"
+        cell.accessibilityTraits = .button
 
         return cell
     }

@@ -38,6 +38,7 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
         loadRecipes()
         
         recipeTableView.delegate = self
+        configureAccessibility()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +54,19 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
         let loader = CoreDataManager(context: context)
         
         do {
-            let recipesList = loader.recipesList
+            recipesList = try loader.loadRecipes()
+        } catch {
+            showEmptyListAlert(message: "There is a problem with the server", title: "Server error")
         }
+    }
+    
+    func showEmptyListAlert(message: String, title: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -66,6 +78,12 @@ class ListOfFavoriteRecipeViewController: UIViewController, UITableViewDelegate 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRecipe = RecipeRepresentable(recipeEntity: recipesList[indexPath.row])
         performSegue(withIdentifier: "showDetailRecipe", sender: nil)
+    }
+    
+    private func configureAccessibility() {
+        recipeTableView.accessibilityLabel = "List of Favorite Recipes"
+        recipeTableView.accessibilityHint = "Displays a list of your favorite recipes"
+        recipeTableView.accessibilityTraits = .none
     }
 }
 
@@ -86,6 +104,10 @@ extension ListOfFavoriteRecipeViewController: UITableViewDataSource {
         let recipe = recipesList[indexPath.row]
 
         cell.configure(with: RecipeRepresentable(recipeEntity: recipe))
+        
+        cell.accessibilityLabel = "Favorite Recipe \(indexPath.row + 1)"
+        cell.accessibilityHint = "Double tap to view the recipe details"
+        cell.accessibilityTraits = .button
 
         return cell
     }
