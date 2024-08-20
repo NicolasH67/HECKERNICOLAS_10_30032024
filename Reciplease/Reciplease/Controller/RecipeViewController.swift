@@ -48,6 +48,7 @@ class RecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         dataModel = CoreDataManager(context: appDelegate.persistentContainer.viewContext)

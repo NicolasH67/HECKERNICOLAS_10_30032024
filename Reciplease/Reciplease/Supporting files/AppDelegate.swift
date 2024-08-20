@@ -14,6 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                          didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let request = NSFetchRequest<RecipeEntity>(entityName: "RecipeEntity")
         _ = try? persistentContainer.viewContext.fetch(request)
+        
+        let appearance = UINavigationBar.appearance()
+        appearance.tintColor = UIColor.white
+        
         return true
     }
     

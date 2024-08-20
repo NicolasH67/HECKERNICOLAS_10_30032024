@@ -18,7 +18,7 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <tabBarAppearance key="standardAppearance" backgroundImageContentMode="center"/>
+                        <tabBarAppearance key="standardAppearance" backgroundEffect="systemChromeMaterialDark" backgroundImageContentMode="center"/>
                     </tabBar>
                     <connections>
                         <segue destination="aFv-z9-nVD" kind="relationship" relationship="viewControllers" id="yTj-RQ-UDv"/>
@@ -183,7 +183,7 @@
                             <constraint firstItem="7nV-kg-Y32" firstAttribute="top" secondItem="8QB-pa-BS0" secondAttribute="top" id="biI-sp-RPr"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Reciplease" id="QRA-Mz-Rkk" userLabel="Reciplease"/>
+                    <navigationItem key="navigationItem" title="Home" id="QRA-Mz-Rkk" userLabel="Reciplease"/>
                     <connections>
                         <outlet property="ingrediantsTextField" destination="2y4-vl-kp4" id="Bzq-06-JNe"/>
                         <outlet property="tableView" destination="5a6-Ex-tvA" id="mFb-OG-I6K"/>
@@ -198,7 +198,7 @@
             </objects>
             <point key="canvasLocation" x="-1727.4809160305342" y="-601.4084507042254"/>
         </scene>
-        <!--Reciplease-->
+        <!--List of Recipe-->
         <scene sceneID="Hho-4G-rCI">
             <objects>
                 <viewController id="gqc-KM-fxn" customClass="ListOfRecipeViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
@@ -224,7 +224,7 @@
                             <constraint firstItem="sW4-H3-bYD" firstAttribute="bottom" secondItem="TWZ-x6-79U" secondAttribute="bottom" id="yDz-C5-37q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Reciplease" id="oJi-GT-d8g"/>
+                    <navigationItem key="navigationItem" title="List of Recipe" id="oJi-GT-d8g"/>
                     <connections>
                         <outlet property="recipeTableView" destination="TWZ-x6-79U" id="FUR-3I-6dC"/>
                         <segue destination="mbm-VJ-wq9" kind="show" identifier="showDetailRecipe" id="1lc-CC-Icg"/>
@@ -412,7 +412,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OlR-Ft-8nh"/>
+        <segue reference="1lc-CC-Icg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="star" catalog="system" width="128" height="116"/>

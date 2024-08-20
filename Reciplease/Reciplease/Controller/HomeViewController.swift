@@ -34,7 +34,9 @@ class HomeViewController: UIViewController {
     @IBAction func clearButton(_ sender: Any) {
         clearIngredients()
         ingrediantsTextField.resignFirstResponder()
+        UIAccessibility.post(notification: .announcement, argument: "All ingredient cleared")
     }
+    
     @IBAction func addButton(_ sender: Any) {
         addIngredients()
         ingrediantsTextField.resignFirstResponder()
